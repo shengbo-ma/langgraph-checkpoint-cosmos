@@ -2,7 +2,7 @@
 Implementation of LangGraph Async CheckpointSaver for Azure Cosmos DB.
 
 ```python
-from .async_checkpoint_saver import AsyncCosmosDBCheckpointSaver
+from .async_checkpoint_saver import AsyncCosmosDBCheckpointSaver, AsyncCosmosDBCheckpointSaverConfig
 
 checkpoint_store_config = AsyncCosmosDBCheckpointSaverConfig(
     URL=...,
