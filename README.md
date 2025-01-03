@@ -1,6 +1,17 @@
 # LangGraph Checkpoint CosmosDB
 Implementation of LangGraph Async CheckpointSaver for Azure Cosmos DB.
 
+## Setup Azure CosmosDB
+Create an azure cosmos db in your azure portal with two containers: one for checkpointer, the other for checkpoint writes.
+Then you should be able to organize the config to be like below
+```
+URL="my-azure-cosmosdb-url",
+KEY="my-key",
+DATABASE="my-database-name",
+CHECKPOINTS_CONTAINER="checkpoints",
+CHECKPOINT_WRITES_CONTAINER="checkpoint_writes",
+```
+## How to Run
 ```python
 import asyncio
 
@@ -13,11 +24,11 @@ write_config = {"configurable": {"thread_id": "1", "checkpoint_ns": ""}}
 read_config = {"configurable": {"thread_id": "1"}}
 
 checkpoint_store_config = AsyncCosmosDBCheckpointSaverConfig(
-    URL=...,
-    KEY=...,
-    DATABASE=...,
-    CHECKPOINTS_CONTAINER=...,
-    CHECKPOINT_WRITES_CONTAINER=...,
+    URL="my-azure-cosmosdb-url",
+    KEY="my-key",
+    DATABASE="my-database-name",
+    CHECKPOINTS_CONTAINER="checkpoints",
+    CHECKPOINT_WRITES_CONTAINER="checkpoint_writes",
 )
 checkpointer = AsyncCosmosDBCheckpointSaver(checkpoint_store_config)
 checkpoint = {
