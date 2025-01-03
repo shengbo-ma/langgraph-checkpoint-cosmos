@@ -1,5 +1,3 @@
-import asyncio
-import atexit
 import base64
 from typing import Any, AsyncIterator, Dict, Optional, Sequence, Tuple
 
@@ -44,19 +42,6 @@ class AsyncCosmosDBCheckpointSaver(BaseCheckpointSaver):
         self.writes_container = self.db.get_container_client(
             config.CHECKPOINT_WRITES_CONTAINER
         )
-
-        # cleanup resources on exit
-        atexit.register(self._dispose)
-
-    def _dispose(self):
-        """
-        Disposes of the Cosmos DB client by closing the connection.
-        This method retrieves the current event loop and runs the close
-        coroutine to properly close the client connection to the Cosmos DB.
-        """
-
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.client.close())
 
     def dumps_typed(self, obj: Any) -> Tuple[str, str]:
         """
